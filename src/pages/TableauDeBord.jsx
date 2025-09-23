@@ -204,54 +204,7 @@ export default function TableauDeBord() {
           </div>
         </div>
 
-        {/* Enhanced Add Task Section */}
-        <section className="add-task-section">
-          <div className="section-header">
-            <div className="section-title-wrapper">
-              <Plus className="section-icon" />
-              <h2 className="section-title">Ajouter une nouvelle tâche</h2>
-            </div>
-          </div>
-
-          <form className="add-task-form" onSubmit={handleAjouter}>
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="titre" className="form-label">
-                  Titre de la tâche *
-                </label>
-                <input
-                  id="titre"
-                  type="text"
-                  className="form-input"
-                  placeholder="Ex: Finaliser le rapport mensuel"
-                  value={nouveauTitre}
-                  onChange={(e) => setNouveauTitre(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="description" className="form-label">
-                Description détaillée
-              </label>
-              <textarea
-                id="description"
-                className="form-textarea"
-                placeholder="Décrivez les détails de votre tâche..."
-                value={nouvelleDescription}
-                onChange={(e) => setNouvelleDescription(e.target.value)}
-                rows="4"
-              />
-            </div>
-
-            <button type="submit" className="submit-btn" disabled={!nouveauTitre.trim()}>
-              <Plus size={20} />
-              Ajouter la tâche
-            </button>
-          </form>
-        </section>
-
+        
         {/* Enhanced Tasks Section */}
         <section className="tasks-section">
           <div className="section-header">
@@ -305,6 +258,55 @@ export default function TableauDeBord() {
             </div>
           )}
         </section>
+
+        {/* Enhanced Add Task Section */}
+        <section className="add-task-section">
+          <div className="section-header">
+            <div className="section-title-wrapper">
+              <Plus className="section-icon" />
+              <h2 className="section-title">Ajouter une nouvelle tâche</h2>
+            </div>
+          </div>
+
+          <form className="add-task-form" onSubmit={handleAjouter}>
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="titre" className="form-label">
+                  Titre de la tâche *
+                </label>
+                <input
+                  id="titre"
+                  type="text"
+                  className="form-input"
+                  placeholder="Ex: Finaliser le rapport mensuel"
+                  value={nouveauTitre}
+                  onChange={(e) => setNouveauTitre(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="description" className="form-label">
+                Description détaillée
+              </label>
+              <textarea
+                id="description"
+                className="form-textarea"
+                placeholder="Décrivez les détails de votre tâche..."
+                value={nouvelleDescription}
+                onChange={(e) => setNouvelleDescription(e.target.value)}
+                rows="4"
+              />
+            </div>
+
+            <button type="submit" className="submit-btn" disabled={!nouveauTitre.trim()}>
+              <Plus size={20} />
+              Ajouter la tâche
+            </button>
+          </form>
+        </section>
+
       </main>
 
       {/* Modal édition */}

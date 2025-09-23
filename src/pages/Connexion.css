@@ -126,12 +126,12 @@
 }
 
 .title {
-  font-size: 2rem;
+  color: #3f65e2 !important;
+  text-shadow: none !important;
   font-weight: 700;
-  color: blue;
-  margin: 0;
-  letter-spacing: -0.025em;
 }
+
+
 
 .subtitle {
   color: var(--text-secondary);

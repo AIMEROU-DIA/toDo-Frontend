@@ -34,9 +34,9 @@ export default function TacheListe({ taches, onToggleComplete, onSupprimer, onEd
         <tbody>
           {taches.map((t) => (
             <tr key={t.id} className={t.completed ? "completed" : ""}>
-              <td className="task-title">{t.title}</td>
-              <td className="task-desc">{t.description || "—"}</td>
-              <td className="task-status">
+              <td className="task-title" data-label="Titre">{t.title}</td>
+              <td className="task-desc" data-label="Description">{t.description || "—"}</td>
+              <td className="task-status" data-label="Statut">
                 {t.completed ? (
                   <span className="status completed">
                     <CheckCircle2 size={14} /> Terminé
@@ -47,7 +47,7 @@ export default function TacheListe({ taches, onToggleComplete, onSupprimer, onEd
                   </span>
                 )}
               </td>
-              <td className="task-actions">
+              <td className="task-actions" data-label="Actions">
                 <button
                   className="btn toggle"
                   title={t.completed ? "Réactiver" : "Marquer comme terminée"}

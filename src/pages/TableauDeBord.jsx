@@ -29,15 +29,14 @@ export default function TableauDeBord() {
   const [erreur, setErreur] = useState(null);
   const [nouveauTitre, setNouveauTitre] = useState("");
   const [nouvelleDescription, setNouvelleDescription] = useState("");
-  
-    const [tacheEnEdition, setTacheEnEdition] = useState(null);
+  const [tacheEnEdition, setTacheEnEdition] = useState(null);
 
-  // Charger toutes les tâches
+  // Charger toutes les tâches (plus besoin de passer username)
   async function fetchTaches() {
     setChargement(true);
     setErreur(null);
     try {
-      const data = await listerTaches(user?.username);
+      const data = await listerTaches(); // Plus de paramètre username
       setTaches(data);
     } catch (err) {
       console.error(err);
@@ -50,7 +49,7 @@ export default function TableauDeBord() {
   }
 
   useEffect(() => {
-    if (user?.username) {
+    if (user) {
       fetchTaches();
     }
   }, [user]);
@@ -61,7 +60,7 @@ export default function TableauDeBord() {
     if (!nouveauTitre.trim()) return;
 
     try {
-      const created = await creerTache(user?.username, {
+      const created = await creerTache({
         title: nouveauTitre,
         description: nouvelleDescription,
         completed: false,
@@ -81,7 +80,6 @@ export default function TableauDeBord() {
     try {
       const updated = await mettreAJourTache(
         tache.id,
-        user?.username,
         { ...tache, completed: !tache.completed }
       );
       setTaches((prev) =>
@@ -96,7 +94,7 @@ export default function TableauDeBord() {
   async function handleSupprimer(tache) {
     if (!window.confirm("Supprimer cette tâche ?")) return;
     try {
-      await supprimerTache(tache.id, user?.username);
+      await supprimerTache(tache.id);
       setTaches((prev) => prev.filter((p) => p.id !== tache.id));
     } catch (err) {
       console.error(err);
@@ -104,7 +102,7 @@ export default function TableauDeBord() {
     }
   }
 
- function handleEdit(tache) {
+  function handleEdit(tache) {
     setTacheEnEdition(tache);
   }
 
@@ -113,7 +111,6 @@ export default function TableauDeBord() {
     try {
       const updated = await mettreAJourTache(
         tacheModifiee.id,
-        user?.username,
         tacheModifiee
       );
       setTaches((prev) =>

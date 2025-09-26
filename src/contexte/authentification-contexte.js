@@ -1,19 +1,22 @@
+// src/contexte/authentification-contexte.js
 import React, { createContext, useState, useEffect } from "react";
 import * as authApi from "../services/auth-api";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);   // infos utilisateur connecté
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Charger l'utilisateur depuis localStorage au démarrage
+  // Charger l'utilisateur et le token depuis localStorage au démarrage
   useEffect(() => {
     const raw = localStorage.getItem("auth");
     if (raw) {
       try {
         const parsed = JSON.parse(raw);
         setUser(parsed.user || null);
+        setToken(parsed.token || null);
       } catch (err) {
         console.error("Erreur lecture auth:", err);
         localStorage.removeItem("auth");
@@ -25,13 +28,26 @@ export function AuthProvider({ children }) {
   // Connexion
   async function login({ username, password }) {
     try {
+      // le backend renvoie une simple chaîne (token)
       const data = await authApi.login({ username, password });
-      // ⚠️ on suppose que l’API renvoie les infos utilisateur (ex: { id, username, email })
-      const saved = { user: data.user || { username } };
-      localStorage.setItem("auth", JSON.stringify(saved));
-      setUser(saved.user);
+
+      console.log("Données reçues du backend:", data); // Debug
+
+      // data est la chaîne brute du token => on construit l'objet authData
+      const authData = {
+        user: { username }, // tu peux remplacer par data.user si ton back renvoie l'utilisateur
+        token: typeof data === "string" ? data : data.token
+      };
+
+      console.log("Données à sauvegarder:", authData); // Debug
+
+      localStorage.setItem("auth", JSON.stringify(authData));
+      setUser(authData.user);
+      setToken(authData.token);
+
       return { ok: true };
     } catch (err) {
+      console.error("Erreur de connexion:", err); // Debug
       const message =
         err?.response?.data?.message || err.message || "Erreur de connexion";
       return { ok: false, message };
@@ -42,7 +58,6 @@ export function AuthProvider({ children }) {
   async function register({ username, email, password }) {
     try {
       const data = await authApi.register({ username, email, password });
-      // ici tu peux choisir de connecter direct ou non
       return { ok: true, data };
     } catch (err) {
       const message =
@@ -55,17 +70,19 @@ export function AuthProvider({ children }) {
   function logout() {
     localStorage.removeItem("auth");
     setUser(null);
+    setToken(null);
   }
 
   return (
     <AuthContext.Provider
       value={{
         user,
+        token,
         loading,
         login,
         logout,
         register,
-        isAuthenticated: !!user, // basé uniquement sur la présence d'un utilisateur
+        isAuthenticated: !!user && !!token, // Vérifier la présence du token aussi
       }}
     >
       {children}

@@ -7,6 +7,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 900px;
   margin: 1.5rem auto;
+  /* Responsive adjustments */
+  margin: 1rem;
+  width: calc(100% - 2rem);
 }
 
 /* Table */
@@ -94,6 +97,7 @@
 .task-actions {
   display: flex;
   gap: 0.7rem;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -107,6 +111,8 @@
   justify-content: center;
   transition: background-color 0.3s ease, color 0.3s ease;
   font-size: 1.1rem;
+  min-width: 36px;
+  min-height: 36px;
 }
 
 .btn.toggle {
@@ -172,4 +178,184 @@
 .empty-task-state .empty-description {
   font-size: 1rem;
   font-style: italic;
+}
+
+/* RESPONSIVE STYLES */
+
+/* Tablet styles */
+@media screen and (max-width: 768px) {
+  .tache-liste-container {
+    margin: 0.5rem;
+    width: calc(100% - 1rem);
+    border-radius: 8px;
+  }
+
+  .task-table th,
+  .task-table td {
+    padding: 0.75rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .task-desc {
+    max-width: 200px;
+    font-size: 0.8rem;
+  }
+
+  .status {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .task-actions {
+    gap: 0.4rem;
+  }
+
+  .btn {
+    padding: 0.3rem 0.4rem;
+    font-size: 1rem;
+    min-width: 32px;
+    min-height: 32px;
+  }
+}
+
+/* Mobile styles */
+@media screen and (max-width: 640px) {
+  .tache-liste-container {
+    margin: 0.25rem;
+    width: calc(100% - 0.5rem);
+    overflow-x: auto;
+  }
+
+  /* Transform table to card layout on mobile */
+  .task-table,
+  .task-table thead,
+  .task-table tbody,
+  .task-table th,
+  .task-table td,
+  .task-table tr {
+    display: block;
+  }
+
+  .task-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .task-table tr {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .task-table tr.completed {
+    opacity: 0.7;
+  }
+
+  .task-table td {
+    border: none;
+    padding: 0.5rem 0;
+    margin-bottom: 0.75rem;
+    box-shadow: none;
+    background: transparent;
+    position: relative;
+    padding-left: 35%;
+  }
+
+  .task-table td:last-child {
+    margin-bottom: 0;
+  }
+
+  .task-table td:before {
+    content: attr(data-label) ": ";
+    position: absolute;
+    left: 0;
+    width: 30%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.85rem;
+  }
+
+  .task-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .task-desc {
+    max-width: none;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .status {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .task-actions {
+    justify-content: flex-start;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .empty-task-state {
+    padding: 2rem 1rem;
+  }
+
+  .empty-task-state .empty-title {
+    font-size: 1.2rem;
+  }
+
+  .empty-task-state .empty-description {
+    font-size: 0.9rem;
+  }
+}
+
+/* Very small mobile styles */
+@media screen and (max-width: 480px) {
+  .task-table td:before {
+    width: 100%;
+    position: static;
+    margin-bottom: 0.25rem;
+    display: block;
+  }
+
+  .task-table td {
+    padding-left: 0;
+  }
+
+  .task-actions {
+    justify-content: center;
+  }
+
+  .btn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* Landscape phone adjustments */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+  .tache-liste-container {
+    margin: 0.5rem;
+  }
+
+  .task-table th,
+  .task-table td {
+    padding: 0.6rem 0.8rem;
+  }
 }

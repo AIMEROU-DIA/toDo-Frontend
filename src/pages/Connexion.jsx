@@ -38,7 +38,7 @@ export default function Connexion() {
                 <line x1="15" y1="12" x2="3" y2="12"/>
               </svg>
             </div>
-            <h1 className="title">Connexion</h1>
+            <h1 className="title1">Connexion</h1>
             <p className="subtitle">Accédez à votre espace de gestion des tâches</p>
           </div>
         </div>

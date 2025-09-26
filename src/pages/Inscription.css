@@ -1,3 +1,5 @@
+/* Inscription.css */
+
 /* Variables CSS */
 :root {
   --primary-color: #2563eb;
@@ -104,12 +106,24 @@
   box-shadow: var(--shadow-lg);
 }
 
-.title {
-  color: #3f65e2 !important;
-  text-shadow: none !important;
-  font-weight: 700;
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+.title1 {
+  font-size: 2rem;
+  font-weight: 100;
+  color: #5589fa;
+  letter-spacing: -0.025em;
+  /* Ombres superposées pour effet 3D */
+  text-shadow:
+    1px 1px 0 #1547a0,    /* ombre sombre proche */
+    2px 2px 0 #8c98b8,
+    3px 3px 0 #7a9ec2,
+    4px 4px 6px rgba(9, 10, 12, 0.6); /* ombre floue pour la profondeur */
 }
 
+
+/* -------------------------------------------------------------------------------------------------------------------------------------- */
 
 .subtitle {
   color: var(--text-secondary);
